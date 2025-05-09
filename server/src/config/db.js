@@ -3,7 +3,7 @@
 import mongoose from "mongoose";
 
 export default function connectDB() {
-  const url = `mongodb+srv://mdanko990:db22danko@cluster0.zvjpk.mongodb.net/`;
+  const url = `mongodb+srv://mdanko990:db22danko@cluster0.zvjpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
   try {
     mongoose.connect(url, {

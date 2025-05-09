@@ -1,26 +1,34 @@
 'use client';
 
 import { Table } from "antd";
-import { useState } from "react";
-import TableActionsPopover from "./popovers/table-actions.popover";
+import { CSSProperties, ReactNode, useEffect, useState } from "react";
 
 class DataTableProps {
+    title?: string;
     data: any[] = [];
     columns: any[] = [];
+    style?: CSSProperties;
+    footer?: ()=>ReactNode | undefined;
 }
 
-const DataTable = ({data, columns}: DataTableProps) => {
-    const [openContextMenu, setOpenContextMenu] = useState(false);
+const DataTable = ({title, data, columns, style, footer}: DataTableProps) => {
+    const [transformedData, setTransformedData] = useState(data);
 
-    const handleRowOnContextMenu = () => {
-        setOpenContextMenu(true);
-    }
+    useEffect(()=>{
+        const newData = [...data].map((item, i) => {
+            return {...item, key: i};
+        })
+        setTransformedData(newData);
+    }, [data])
 
     return (
         <Table
-            dataSource={data}
+            title={()=>title}
+            dataSource={transformedData}
             columns={columns}
             size="small"
+            style={style}
+            footer={footer}
             />
     );
 }

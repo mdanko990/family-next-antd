@@ -16,8 +16,35 @@ router.post("/", async (request, response) => {
   const lastname = new LastNameModel(request.body);
 
   try {
-    await lastname.save();
-    response.send(lastname);
+    const newLastName = await lastname.save();
+    response.send(newLastName);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+router.put("/:id", async (request, response) => {
+  console.log("update", request.body);
+
+  try {
+    const updatedLastName = await LastNameModel.findByIdAndUpdate(
+      request.params.id,
+      {
+        male: lastname.male,
+        female: lastname.female,
+      }
+    );
+    response.send(updatedLastName);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+router.delete("/:id", async (request, response) => {
+  console.log("delete", request.params.id);
+  try {
+    await LastNameModel.findByIdAndDelete(request.params.id);
+    response.send(request.params.id);
   } catch (error) {
     response.status(500).send(error);
   }
