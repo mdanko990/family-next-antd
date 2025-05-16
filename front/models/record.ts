@@ -7,21 +7,39 @@ export type Event = 'birth' | 'marriage' | 'death';
 export type AgeUnitType = 'y' | 'm' | 'w' | 'd';
 
 export class Record {
-  index: string = '';
-  person: Person = new Person();
+  _id: string = '';
+  lastName: string = '';
+  maidenName: string = '';
+  firstName: string = '';
+  patronym: string = '';
   is_main: string = '';
-  event: string = '';
-  date: Date | null = null;
   role: Role = new Role();
   status: Status = new Status();
   age: number | null = null;
   ageUnit: AgeUnitType = 'y';
   comments: string = '';
-  registrationLocation: string = '';
+  document: Document = new Document();
+}
+
+export class Document {
+  _id: string = '';
+  event: string = '';
+  date: Date | null = null;
+  location: string = '';
   archive: string = '';
   fond: string = '';
   inventory: string = '';
   file: string = '';
   page: number = 0;
   link: string = '';
+  records?: Record[] = [];
+  members?: MemberList;
+}
+
+export class MemberList {
+  child?: Record;
+  mother?: Record;
+  father?: Record;
+  godmother?: Record;
+  godfather?: Record;
 }

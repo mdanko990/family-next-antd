@@ -5,7 +5,13 @@ const router = express.Router();
 router.get("/", async (request, response) => {
   try {
     const records = await RecordModel.find();
-    response.send(records);
+    const recordsTotal = await RecordModel.countDocuments();
+    const documentsTotal = await DocumentModel.countDocuments();
+    response.send({
+      data: records,
+      recordsTotal,
+      documentsTotal,
+    });
   } catch (error) {
     response.status(500).send(error);
   }

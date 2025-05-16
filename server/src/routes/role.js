@@ -1,23 +1,23 @@
 import express from "express";
-import EventModel from "../models/event.js";
+import RoleModel from "../models/role.js";
 
 const router = express.Router();
 
 router.get("/", async (request, response) => {
   try {
-    const events = await EventModel.find();
-    response.send(events);
+    const roles = await RoleModel.find();
+    response.send(roles);
   } catch (error) {
     response.status(500).send(error);
   }
 });
 
 router.post("/", async (request, response) => {
-  const event = new EventModel(request.body);
+  const role = new RoleModel(request.body);
 
   try {
-    await event.save();
-    response.send(event);
+    await role.save();
+    response.send(role);
   } catch (error) {
     response.status(500).send(error);
   }

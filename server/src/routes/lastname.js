@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", async (request, response) => {
   try {
-    const names = await LastNameModel.find();
+    const names = await LastNameModel.find().sort({ name: 1 });
     response.send(names);
   } catch (error) {
     response.status(500).send(error);
@@ -13,7 +13,10 @@ router.get("/", async (request, response) => {
 
 router.post("/", async (request, response) => {
   console.log("create", request.body);
-  const lastname = new LastNameModel(request.body);
+  const lastname = new LastNameModel({
+    ...request.body,
+    name: request.body.name,
+  });
 
   try {
     const newLastName = await lastname.save();
@@ -30,6 +33,7 @@ router.put("/:id", async (request, response) => {
     const updatedLastName = await LastNameModel.findByIdAndUpdate(
       request.params.id,
       {
+        name: lastname.male,
         male: lastname.male,
         female: lastname.female,
       }

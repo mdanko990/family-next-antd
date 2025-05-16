@@ -4,7 +4,8 @@ import { Button, Col, Form, Input, Radio, Row, Select } from "antd";
 import { CheckOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { CheckboxGroupProps } from "antd/es/checkbox";
-import { FirstNameGroup } from "@/models/name";
+import { FirstNameGroup, Gender } from "@/models/name";
+import SearchSelect from "@/app/components/search-select";
 
 const CreateFirstNameForm = ({groups, save}: {groups: FirstNameGroup[], save: Function}) => {
     const [form] = Form.useForm();
@@ -17,6 +18,11 @@ const CreateFirstNameForm = ({groups, save}: {groups: FirstNameGroup[], save: Fu
         { label: 'Create a new one', value: 'create' },
     ];
 
+    const genderOptions: CheckboxGroupProps<string>['options'] = [
+        { label: 'Male', value: 'M' },
+        { label: 'Female', value: 'F' }
+    ]
+
     useEffect(() => {
         form.getFieldValue("name")
         ? setValid(true)
@@ -26,6 +32,7 @@ const CreateFirstNameForm = ({groups, save}: {groups: FirstNameGroup[], save: Fu
     const onFormSubmit = () => {
         save(form.getFieldsValue());
         form.setFieldValue("name", "")
+        form.setFieldValue("gender", "M")
         form.setFieldValue("group", "")
     }
 
@@ -44,6 +51,7 @@ const CreateFirstNameForm = ({groups, save}: {groups: FirstNameGroup[], save: Fu
         <>
             <Form
                 form={form}
+                clearOnDestroy
             >              
                 <Row gutter={24}>
                     <Col span={22}>
@@ -53,28 +61,30 @@ const CreateFirstNameForm = ({groups, save}: {groups: FirstNameGroup[], save: Fu
                             </Form.Item>
                         </Row>
                         <Row>
-                            <Form.Item>
-                                <Radio.Group options={groupAssignmentOptions} onChange={handleGroupRadioChange} value={group} />
+                            <Form.Item name="gender" initialValue={"M"} required  className="w-full">
+                                <Radio.Group options={genderOptions} onChange={handleGroupRadioChange} />
                             </Form.Item>
                         </Row>
                         <Row>
+                            <Col span={18}>
+                            <Form.Item>
+                                <Radio.Group options={groupAssignmentOptions} onChange={handleGroupRadioChange} value={group} />
+                            </Form.Item>
+                            </Col>
+                            <Col>
                             {
                                 group === "select"
                                 ? <Form.Item name="group" required={group==="select"}>
                                     <Select
                                         showSearch
                                         allowClear
-                                        style={{ width: 200 }}
-                                        placeholder="Search to Select"
-                                        optionFilterProp="label"
-                                        filterSort={(optionA, optionB) =>
-                                            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
-                                        }
+                                        placeholder="Select a group"
                                         options={groups.map(group=>({...group, label: group.group?.map(name=>name.name).join(', '), value: group._id}))}
-                                    />
+                                    /> 
                                 </Form.Item>
                                 : null
                             }
+                            </Col>
                         </Row>
                     </Col>
                     <Col>

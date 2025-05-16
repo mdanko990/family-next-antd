@@ -10,6 +10,9 @@ const personSchema = new mongoose.Schema({
   firstName: {
     type: String,
   },
+  patronym: {
+    type: String,
+  },
 });
 
 const PersonModel = mongoose.model("Person", personSchema);

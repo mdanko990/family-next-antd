@@ -1,5 +1,6 @@
 export class LastName {
     _id: string = '';
+    name: string = '';
     male: string = '';
     female: string = '';
 }

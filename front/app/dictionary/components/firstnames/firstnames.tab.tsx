@@ -76,24 +76,23 @@ const FirstNamesTab = () => {
     return (
         <div>
           <Space className='flex align-center'>
-
-          <Switch size="small" checked={grouped} onClick={handleTableSwitch}/>
-          {grouped? "Grouped": "Ungrouped"}
+            <Switch size="small" checked={grouped} onClick={handleTableSwitch}/>
+            {grouped? "Grouped": "Ungrouped"}
           </Space>
-        <DataTable
-        data={data}
-        columns={columns}
-        style={{width: "700px"}}
-        footer={tableFooter}
-        />
-        {open?
+          <DataTable
+          data={data}
+          columns={columns}
+          style={{width: "700px"}}
+          footer={tableFooter}
+          />
+          {open?
             <Button variant="outlined" className='w-full' icon={<CloseOutlined/>} onClick={()=>setOpen(false)}>
                 Cancel
             </Button>
             :<Button variant="outlined" className='w-full' icon={<PlusOutlined/>} onClick={()=>setOpen(true)}>
                 Add
             </Button>
-        }
+          }
         </div>
     )
 }

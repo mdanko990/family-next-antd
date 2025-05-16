@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", async (request, response) => {
   try {
-    const names = await FirstNameModel.find();
+    const names = await FirstNameModel.find().sort({ name: 1 });
     response.send(names);
   } catch (error) {
     response.status(500).send(error);
