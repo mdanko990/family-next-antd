@@ -78,13 +78,7 @@ const RecordBirthModal = ({type, initialDocument, firstnamesMale, firstnamesFema
   
     const handleOk = () => {
         documentForm.setFieldValue(["members", "child", "gender"], gender);
-        const members = Object.fromEntries(
-            Object.entries(documentForm.getFieldsValue().members).map(([key, value]) => [key, {
-                ...value as Record,
-                role: roles.find(role=> role.name === key)
-            }]),
-          );
-        createDocument({...documentForm.getFieldsValue(), members, type: type})
+        createDocument({...documentForm.getFieldsValue(), type: type})
         
         setIsModalOpen(false);
     };
