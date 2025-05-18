@@ -12,7 +12,7 @@ const RecordSchema = new mongoose.Schema({
   status: { type: mongoose.Types.ObjectId, ref: "Status" },
   age: { type: Number },
   ageUnits: { type: String, enum: ["y", "m", "w", "d"] },
-  comments: { type: String },
+  comment: { type: String },
   document: { type: mongoose.Types.ObjectId, ref: "Document", required: true },
 });
 

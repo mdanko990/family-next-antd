@@ -82,8 +82,6 @@ router.post("/", async (request, response) => {
       });
     } else {
       const group = await FirstNameGroupModel.findById(firstName.group);
-      console.log("firstname", JSON.stringify(firstName));
-      console.log("group", JSON.stringify(group));
       await FirstNameGroupModel.findByIdAndUpdate(group._id, {
         group: [...group.group, firstName._id],
       });

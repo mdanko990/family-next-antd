@@ -1,8 +1,12 @@
 import { Button, Divider, Flex } from "antd";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { ReactNode, useState } from "react";
-
-const ToggleDivider = ({defaultOpen = false, label, content}: {defaultOpen?: boolean, label: string, content: ReactNode}) => {
+import { FC, JSXElementConstructor, ReactNode, useState } from "react";
+interface ToggleDividerProps {
+    defaultOpen?: boolean,
+    label: string,
+    children: ReactNode
+}
+const ToggleDivider: FC<ToggleDividerProps> = ({defaultOpen, label, children}) => {
     const [open, setOpen] = useState(defaultOpen);
     return (
         <>
@@ -16,11 +20,9 @@ const ToggleDivider = ({defaultOpen = false, label, content}: {defaultOpen?: boo
                 {label}
             </Flex>
             </Divider>
-            {
-                open
-                ? content
-                : null
-            }
+            <div className={open?"block":"hidden"}>
+                {children}
+            </div>
         </>
     )
 }

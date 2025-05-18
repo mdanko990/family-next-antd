@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Col, Flex, Form, FormInstance, Input, Row, Space } from "antd";
+import { Button, Col, Flex, Form, Row } from "antd";
 import { X } from "lucide-react";
 import { Record } from '@/models/record'
 import { useState } from "react";
@@ -13,13 +13,11 @@ interface SetItemProps<K> {
 }
 
 interface FormItemSetProps<T, K> {
-    form: FormInstance,
     config: SetItemProps<K>[],
     initList: T,
-    change: () => void
 }
 
-const FormItemSet = <T, K>({form, config, initList, change}: FormItemSetProps<T, K>) => {
+const FormItemSet = <T, K>({ config, initList}: FormItemSetProps<T, K>) => {
     const [list, setList] = useState(initList);
 
     const add = (value: keyof T) => {
@@ -30,8 +28,7 @@ const FormItemSet = <T, K>({form, config, initList, change}: FormItemSetProps<T,
     }
 
     return (
-        // <Form form={form} onFieldsChange={change}>
-        <>
+        <Form.Item>
             <Flex gap={4}>
                 {
                     config.map(item => (
@@ -46,7 +43,7 @@ const FormItemSet = <T, K>({form, config, initList, change}: FormItemSetProps<T,
                     list[item.key as keyof T]
                     ? <Row gutter={8} key={item.key as string}>
                         <Col span={22}>
-                            <ToggleDivider defaultOpen label={item.label} content={item.render(item)}/>
+                            <ToggleDivider defaultOpen={true} label={item.label}>{item.render(item)}</ToggleDivider>
                         </Col>
                         <Col className="pt-[21px]">
                             <X size={16}
@@ -60,8 +57,7 @@ const FormItemSet = <T, K>({form, config, initList, change}: FormItemSetProps<T,
                     : null
                 ))
             }
-        </>
-        // </Form>
+        </Form.Item>
     )
 }
 

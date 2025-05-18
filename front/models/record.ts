@@ -1,6 +1,7 @@
 import Person from "./person";
 import { Role } from "./role";
 import { Status } from "./status";
+import { Type } from "./type";
 
 export type Event = 'birth' | 'marriage' | 'death';
 
@@ -17,13 +18,13 @@ export class Record {
   status: Status = new Status();
   age: number | null = null;
   ageUnit: AgeUnitType = 'y';
-  comments: string = '';
+  comment: string = '';
   document: Document = new Document();
 }
 
 export class Document {
   _id: string = '';
-  event: string = '';
+  type: Type | null = null;
   date: Date | null = null;
   location: string = '';
   archive: string = '';

@@ -1,9 +1,10 @@
-import { Button, DatePicker, Form, Input, Popconfirm } from "antd";
+import { Button, DatePicker, Form, Input, message, Popconfirm } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { Settings2 } from "lucide-react";
 import { Document } from "@/models/record"
 
 const RecordInitPopconfirm = ({initialValues, save}:{initialValues: Document, save: Function}) => {
+    const [messageApi, contextHolder] = message.useMessage();
     const [form] = useForm();
 
     const description = (
@@ -42,21 +43,25 @@ const RecordInitPopconfirm = ({initialValues, save}:{initialValues: Document, sa
     );
 
     const handleFormConfirm = () => {
-        save(form.getFieldsValue())
+        save(form.getFieldsValue());
+        messageApi.success("Document default values udpated!")
     }
 
     return (
-        <Popconfirm
-            title="Set default information for new records"
-            description={description}
-            style={{right: 20}}
-            icon={null}
-            okText="Ok"
-            onConfirm={handleFormConfirm}
-            showCancel={false}
-        >
-            <Button shape="circle" icon={<Settings2 size={16}/>}/>
-        </Popconfirm>
+        <>
+            <Popconfirm
+                title="Set default information for new records"
+                description={description}
+                style={{right: 20}}
+                icon={null}
+                okText="Ok"
+                onConfirm={handleFormConfirm}
+                showCancel={false}
+                >
+                <Button shape="circle" icon={<Settings2 size={16}/>}/>
+            </Popconfirm>
+            {contextHolder}
+        </>
     )
 }
 

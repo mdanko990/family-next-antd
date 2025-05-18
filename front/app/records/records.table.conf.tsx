@@ -1,4 +1,5 @@
 import { ColumnsType } from "antd/es/table";
+type FormControlType = "select" | "inputText" | "inputNumber" | "date" | "textarea" | "switch"
 
 const recordColumns: ColumnsType = [
     {

@@ -75,8 +75,7 @@ export default function Records() {
                     <Space>
                         <RecordBirthModal
                             type={types.find((item:Type)=>item.name === "birth")||null}
-                            firstnamesMale={firstnames.male}
-                            firstnamesFemale={firstnames.female}
+                            firstnames={firstnames}
                             lastnames={lastnames}
                             statuses={statuses}
                             roles={roles}

@@ -12,7 +12,6 @@ router.get("/", async (request, response) => {
 });
 
 router.post("/", async (request, response) => {
-  console.log("create", request.body);
   const lastname = new LastNameModel({
     ...request.body,
     name: request.body.name,
@@ -27,8 +26,6 @@ router.post("/", async (request, response) => {
 });
 
 router.put("/:id", async (request, response) => {
-  console.log("update", request.body);
-
   try {
     const updatedLastName = await LastNameModel.findByIdAndUpdate(
       request.params.id,
@@ -45,7 +42,6 @@ router.put("/:id", async (request, response) => {
 });
 
 router.delete("/:id", async (request, response) => {
-  console.log("delete", request.params.id);
   try {
     await LastNameModel.findByIdAndDelete(request.params.id);
     response.send(request.params.id);
