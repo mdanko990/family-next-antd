@@ -16,12 +16,24 @@ export const firstNameColumns: (editFn: Function, deleteFn: Function) => Columns
             ? <UserOutlined style={{color: palette.blue}} />
             : <UserOutlined style={{color: palette.pink}}/>
         ),
+        sorter: (a, b) => {
+            return (a.gender === b.gender) ? 0 : a ? -1 : 1;
+        }
     },
     {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
         width: '150px',
+        sorter: (a: any, b: any) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          }
     },
     {
         title: 'Variations',

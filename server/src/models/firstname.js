@@ -7,6 +7,8 @@ const firstNameSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "FirstNameGroup",
   },
+  malePatronym: { type: String },
+  femalePatronym: { type: String },
 });
 
 const FirstNameModel = mongoose.model("FirstName", firstNameSchema);

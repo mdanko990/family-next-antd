@@ -12,11 +12,16 @@ export class FirstName {
     name: string = '';
     group: FirstName[] | null = null;
     gender: Gender = 'M';
+    malePatronym: string = '';
+    femalePatronym: string = '';
+
     constructor(firstname: FirstName){
         this._id = firstname._id;
         this.gender = firstname.gender;
         this.name = firstname.name;
         this.group = firstname.group;
+        this.malePatronym = firstname.malePatronym;
+        this.femalePatronym = firstname.femalePatronym;
     }
 }
 

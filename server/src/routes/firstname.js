@@ -92,4 +92,21 @@ router.post("/", async (request, response) => {
   }
 });
 
+router.put("/:id", async (request, response) => {
+  const firstName = request.body;
+  try {
+    const updatedFirstName = await FirstNameModel.findByIdAndUpdate(
+      request.params.id,
+      {
+        name: firstName.name,
+        malePatronym: firstName.malePatronym,
+        femalePatronym: firstName.femalePatronym,
+      }
+    );
+    response.send(updatedFirstName);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 export default router;
