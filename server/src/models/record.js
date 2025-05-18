@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const RecordSchema = new mongoose.Schema({
-  lastName: { type: String },
-  maidenName: { type: String },
-  firstName: { type: String },
+  lastName: { type: mongoose.Types.ObjectId, ref: "LastName" },
+  maidenName: { type: mongoose.Types.ObjectId, ref: "LastName" },
+  firstName: { type: mongoose.Types.ObjectId, ref: "FirstName" },
   // firstNameGroup: { type: mongoose.Types.ObjectId, ref: "FirstNameGroup" },
   patronym: { type: String },
   // person: { type: mongoose.Types.ObjectId, ref: "Person", required: true },
-  is_main: { type: Boolean, default: false },
+  isMain: { type: Boolean, default: false },
   role: { type: mongoose.Types.ObjectId, ref: "Role", required: true },
   status: { type: mongoose.Types.ObjectId, ref: "Status" },
   age: { type: Number },

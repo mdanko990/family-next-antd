@@ -5,7 +5,7 @@ import DataTable from "../components/table";
 import recordColumns from "./records.table.conf";
 import { getAllRecords } from "../lib/records";
 import { Record, Document } from '@/models/record'
-import { Button, Flex, Space } from "antd";
+import { Button, Flex, message, Space } from "antd";
 import { Blend, Skull } from "lucide-react";
 import RecordInitPopconfirm from "./record-init.popconfirm";
 import RecordBirthModal from "./record-birth.modal";
@@ -20,6 +20,7 @@ import { getAllRoles } from "../lib/role";
 import { Role } from "@/models/role";
 
 export default function Records() {
+    const [messageApi, contextHolder] = message.useMessage();
     const [data, setData] = useState<Record[]>([]);
     const [statuses, setStatuses] = useState<Status[]>([]);
     const [types, setTypes] = useState<Type[]>([]);
@@ -38,13 +39,13 @@ export default function Records() {
             setRecordsTotal(res.recordsTotal || 0);
             setDocumentsTotal(res.documentsTotal || 0);
         })
+        .catch((error)=>{message.error(error);setData([])})
         getAllStatuses()
         .then((res) =>{
             setStatuses(res)
         })
         getAllFirstNamesByGender()
         .then((res) =>{
-            console.log(res)
             setFirstnames(res)
         })
         getAllLastNames()
@@ -86,7 +87,7 @@ export default function Records() {
                 </Flex>
             </Flex>
             <DataTable
-                data={[]}
+                data={data}
                 columns={recordColumns}/>
         </div>
     );

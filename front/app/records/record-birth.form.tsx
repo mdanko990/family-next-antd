@@ -3,7 +3,7 @@ import { Button, Col, DatePicker, Flex, Form, Input, Row, Select, Space, Switch 
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { RecordRole, SetItemProps } from "./record-birth.config";
-import FormItemSet from "./form-item-set";
+import FormItemSet from "../components/form-item-set";
 import { MemberList, Document } from "@/models/record";
 import { Status } from "@/models/status";
 import { Role } from "@/models/role";
@@ -63,24 +63,24 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
             <Space direction="vertical" key={field.key}>
                 <Row gutter={8}>
                     <Col span={8}>
-                        <Form.Item name={["members", field.key, gender==="F"&&!isAdult?"maidenname":"lastname"]}>
+                        <Form.Item name={["members", field.key, gender==="F"&&!isAdult?"maidenName":"lastName"]}>
                             <Select
                                 showSearch
                                 allowClear
                                 placeholder={gender==="F"&&!isAdult?"Maiden name":"Last name"}
                                 options={data.lastnames.map(item=>({...item, label: item.name, value: item.name}))}
-                                onSelect={(value: any, option: any)=>handleLastnameSelect(field.key, gender==="F"&&!isAdult?"maidenname":"lastname", option)}
+                                onSelect={(value: any, option: any)=>handleLastnameSelect(field.key, gender==="F"&&!isAdult?"maidenName":"lastName", option)}
                             />                              
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <Form.Item name={["members", field.key, "firstname"]}>
+                        <Form.Item name={["members", field.key, "firstName"]}>
                             <Select
                                 showSearch
                                 allowClear
                                 placeholder={"First name"}
                                 options={list.map(item=>({...item, label: item.name, value: item.name}))}
-                                onSelect={(value: any, option: any)=>form.setFieldValue(["members", field.key, "firstname"], option)}
+                                onSelect={(value: any, option: any)=>form.setFieldValue(["members", field.key, "firstName"], option)}
                             />
                         </Form.Item>
                     </Col>
@@ -91,13 +91,13 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
                     </Col>
                     {gender==="F"&&isAdult
                     ?<Col span={8}>
-                        <Form.Item name={["members", field.key, "maidenname"]}>
+                        <Form.Item name={["members", field.key, "maidenName"]}>
                             <Select
                                 showSearch
                                 allowClear
                                 placeholder={"Maiden name"}
                                 options={data.lastnames.map(item=>({...item, label: item.name, value: item.name}))}
-                                onSelect={(value: any, option: any)=>form.setFieldValue(["members", field.key, "maidenname"], option)}
+                                onSelect={(value: any, option: any)=>form.setFieldValue(["members", field.key, "maidenName"], option)}
                             />
                         </Form.Item>
                     </Col> : null
@@ -151,11 +151,11 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
             if(!form.getFieldValue(["members", "child", prop])){
                 form.setFieldValue(["members", "child", prop], value.value);
             }
-            if(!form.getFieldValue(["members", "mother", "lastname"])) {
-                form.setFieldValue(["members", "mother", "lastname"], value.value);
+            if(!form.getFieldValue(["members", "mother", "lastName"])) {
+                form.setFieldValue(["members", "mother", "lastName"], value.value);
             }
-            if(!form.getFieldValue(["members", "father", "lastname"])) {
-                form.setFieldValue(["members", "father", "lastname"], value.value);
+            if(!form.getFieldValue(["members", "father", "lastName"])) {
+                form.setFieldValue(["members", "father", "lastName"], value.value);
             }
         } else {
             form.setFieldValue(["members", role, prop], value.value);
@@ -164,6 +164,8 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
     
     const handleSave = () => {
         form.setFieldValue(["members", "child", "gender"], gender);
+        form.setFieldValue(["members", "child", "age"], 0);
+        form.setFieldValue(["members", "child", "ageUnit"], "y");
         save(form.getFieldsValue())
     }
 

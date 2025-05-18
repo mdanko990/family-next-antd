@@ -1,10 +1,21 @@
 import express from "express";
 import RecordModel from "../models/record.js";
+import DocumentModel from "../models/document.js";
+
 const router = express.Router();
 
 router.get("/", async (request, response) => {
   try {
-    const records = await RecordModel.find();
+    const records = await RecordModel.find()
+      .populate("role")
+      .populate("status")
+      .populate("firstName")
+      .populate("lastName")
+      .populate("maidenName")
+      .populate({
+        path: "document",
+        populate: { path: "type", select: "name" },
+      });
     const recordsTotal = await RecordModel.countDocuments();
     const documentsTotal = await DocumentModel.countDocuments();
     response.send({

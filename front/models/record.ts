@@ -13,7 +13,7 @@ export class Record {
   maidenName: string = '';
   firstName: string = '';
   patronym: string = '';
-  is_main: string = '';
+  isMain: string = '';
   role: Role = new Role();
   status: Status = new Status();
   age: number | null = null;

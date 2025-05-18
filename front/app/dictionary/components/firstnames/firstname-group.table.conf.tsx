@@ -3,6 +3,7 @@ import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { UserOutlined } from '@ant-design/icons';
 import { FirstName } from "@/models/name";
+import palette from "@/app/lib/color-palette";
 
 export const firstNameGroupColumns: (editFn: Function, deleteFn: Function) => ColumnsType = (editFn, deleteFn) => [
     {
@@ -12,8 +13,8 @@ export const firstNameGroupColumns: (editFn: Function, deleteFn: Function) => Co
         width: '50px',
         render:(value: any, record: any) => (
             value === "M"
-            ? <UserOutlined style={{color: "#6777b6"}} />
-            : <UserOutlined style={{color: "#d17086"}}/>
+            ? <UserOutlined style={{color: palette.blue}} />
+            : <UserOutlined style={{color: palette.pink}}/>
         ),
     },
     {

@@ -69,7 +69,7 @@ const createRecord = async (roleName, member, document, main) => {
     ...member,
     document,
     role,
-    is_main: main.includes(roleName),
+    isMain: main.includes(roleName),
     status: member.status,
   });
 };
