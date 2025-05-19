@@ -8,7 +8,7 @@ import { Record, Document } from '@/models/record'
 import { Button, Flex, message, Space } from "antd";
 import { Blend, Skull } from "lucide-react";
 import RecordInitPopconfirm from "./record-init.popconfirm";
-import RecordBirthModal from "./record-birth.modal";
+import RecordBirthModal from "./birth/record-birth.modal";
 import { FirstName, LastName } from "@/models/name";
 import { getAllFirstNames, getAllFirstNamesByGender } from "../lib/firstnames";
 import { getAllLastNames } from "../lib/lastnames";
@@ -18,6 +18,7 @@ import { getAllTypes } from "../lib/types";
 import { Type } from "@/models/type";
 import { getAllRoles } from "../lib/role";
 import { Role } from "@/models/role";
+import RecordMarriageModal from "./marriage/record-marriage.modal";
 
 export default function Records() {
     const [messageApi, contextHolder] = message.useMessage();
@@ -81,7 +82,13 @@ export default function Records() {
                             statuses={statuses}
                             roles={roles}
                             initialDocument={defaultDocument}/>
-                        <Button shape="circle" icon={<Blend size={16} />}/>
+                        <RecordMarriageModal
+                            type={types.find((item:Type)=>item.name === "marriage")||null}
+                            firstnames={firstnames}
+                            lastnames={lastnames}
+                            statuses={statuses}
+                            roles={roles}
+                            initialDocument={defaultDocument}/>
                         <Button shape="circle" icon={<Skull size={16} />}/>
                     </Space>
                 </Flex>
