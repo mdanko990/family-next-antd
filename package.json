@@ -1,0 +1,22 @@
+{
+  "name": "family-next-antd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix front\" \"npm run dev --prefix server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdanko990/family-next-antd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdanko990/family-next-antd/issues"
+  },
+  "homepage": "https://github.com/mdanko990/family-next-antd#readme",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
