@@ -23,4 +23,27 @@ router.post("/", async (request, response) => {
   }
 });
 
+router.put("/:id", async (request, response) => {
+  const id = request.params.id;
+  const status = request.body;
+
+  try {
+    const updatedStatus = await StatusModel.findByIdAndUpdate(id, status);
+    response.send(updatedStatus);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+router.delete("/:id", async (request, response) => {
+  const id = request.params.id;
+
+  try {
+    await StatusModel.findByIdAndDelete(id);
+    response.send(id);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 export default router;

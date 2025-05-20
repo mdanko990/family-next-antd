@@ -3,6 +3,7 @@
 import { Tabs, TabsProps } from "antd";
 import FirstNamesTab from "./components/firstnames/firstnames.tab";
 import LastNamesTab from "./components/lastnames/lastnames.tab";
+import ConfigurationTab from "./components/configuration/configuration.tab";
 
 const Dictionary = () => {
     const items: TabsProps['items'] = [
@@ -17,6 +18,12 @@ const Dictionary = () => {
             label: 'Firstnames',
             children: <FirstNamesTab />,
             className: 'flex justify-center'
+        },
+        {
+            key: 'configuration',
+            label: 'Configuration',
+            children: <ConfigurationTab />,
+            className: 'flex w-full'
         },
     ];
 

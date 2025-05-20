@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { UserOutlined } from '@ant-design/icons';
 import { FirstName } from "@/models/name";
 import palette from "@/app/lib/color-palette";
+import { GenderRenderer } from "@/app/components/table-cell.renderer";
 
 export const firstNameGroupColumns: (editFn: Function, deleteFn: Function) => ColumnsType = (editFn, deleteFn) => [
     {
@@ -11,11 +12,7 @@ export const firstNameGroupColumns: (editFn: Function, deleteFn: Function) => Co
         dataIndex: 'gender',
         key: 'gender',
         width: '50px',
-        render:(value: any, record: any) => (
-            value === "M"
-            ? <UserOutlined style={{color: palette.blue}} />
-            : <UserOutlined style={{color: palette.pink}}/>
-        ),
+        render: GenderRenderer,
     },
     {
         title: 'Groups',

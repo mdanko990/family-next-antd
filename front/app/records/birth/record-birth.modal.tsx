@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { Document } from "@/models/record";
 import { FirstName, LastName } from "@/models/name";
 import { Status } from "@/models/status";
-import { createDocument } from "../lib/documents";
 import { Type } from "@/models/type";
 import { Role } from "@/models/role";
 import RecordBirthForm from "./record-birth.form";
+import { createDocument } from "@/app/lib/documents";
 
 export interface RecordBirthModalProps {
     type: Type | null,

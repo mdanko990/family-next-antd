@@ -10,6 +10,7 @@ import PersonRouter from "./routes/personRouter.js";
 import StatusRouter from "./routes/status.js";
 import TypeRouter from "./routes/type.js";
 import RoleRouter from "./routes/role.js";
+import TypeRoleRouter from "./routes/type-role.js";
 
 const app = express();
 const PORT = 5000;
@@ -31,6 +32,7 @@ app.use("/dictionary/groups", FirstNameGroupRouter);
 app.use("/dictionary/types", TypeRouter);
 app.use("/dictionary/statuses", StatusRouter);
 app.use("/dictionary/roles", RoleRouter);
+app.use("/dictionary/type-roles", TypeRoleRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

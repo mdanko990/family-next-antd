@@ -16,7 +16,7 @@ import { getAllStatuses } from "../lib/statuses";
 import { Status } from "@/models/status";
 import { getAllTypes } from "../lib/types";
 import { Type } from "@/models/type";
-import { getAllRoles } from "../lib/role";
+import { getAllRoles } from "../lib/roles";
 import { Role } from "@/models/role";
 import RecordMarriageModal from "./marriage/record-marriage.modal";
 

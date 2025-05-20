@@ -1,4 +1,3 @@
-import Person from "./person";
 import { Role } from "./role";
 import { Status } from "./status";
 import { Type } from "./type";

@@ -1,6 +1,6 @@
 import { Button, Tag } from "antd";
 import { format } from "date-fns";
-import { Blend, Cake, Link, Skull } from "lucide-react";
+import { Blend, Cake, Link, Skull, UserRound } from "lucide-react";
 import palette from "../lib/color-palette";
 
 export const TypeRenderer = ({value}: {value: any}) => {
@@ -53,3 +53,11 @@ export const AgeRenderer = ({value}: {value: any}) => {
     if(isNaN(age)) return <span>-</span>
     else return <span>{age} {ageUnit}</span>
 }
+
+export const GenderRenderer = (value: any, record: any) => (
+    value === "M"
+    ? <UserRound color={palette.blue} size={20}/>
+    : value === "F"
+    ? <UserRound color={palette.pink} size={20}/>
+    : null
+)

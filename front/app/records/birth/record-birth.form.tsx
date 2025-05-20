@@ -3,12 +3,12 @@ import { Button, Col, DatePicker, Flex, Form, Input, Row, Select, Space, Switch 
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { RecordRole, SetItemProps } from "./record-birth.config";
-import FormItemSet from "../components/form-item-set";
 import { MemberList, Document } from "@/models/record";
 import { Status } from "@/models/status";
 import { Role } from "@/models/role";
 import TextArea from "antd/es/input/TextArea";
-import DocumentForm from "./document.form";
+import FormItemSet from "@/app/components/form-item-set";
+import DocumentForm from "../document.form";
 
 interface RecordBirthFormProps {
     data: RecordDataProps,

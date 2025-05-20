@@ -4,4 +4,4 @@ export interface SetItemProps {
     render: (field: any) => React.JSX.Element
 }
 
-export type RecordRole = "child" | "mother" | "father" | "godmother" | "godfather";
+export type RecordRole = "child" | "mother" | "father" | "godmother" | "godfather" | "husband" | "wife" | "witness";
