@@ -3,12 +3,12 @@ import { Button, Col, DatePicker, Flex, Form, Input, Row, Select, Space, Switch 
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { RecordRole, SetItemProps } from "./record-birth.config";
-import FormItemSet from "../components/form-item-set";
 import { MemberList, Document } from "@/models/record";
 import { Status } from "@/models/status";
 import { Role } from "@/models/role";
 import TextArea from "antd/es/input/TextArea";
-import DocumentForm from "./document.form";
+import FormItemSet from "@/app/components/form-item-set";
+import DocumentForm from "../document.form";
 
 interface RecordBirthFormProps {
     data: RecordDataProps,
@@ -30,25 +30,32 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
     
     const config = [
         {
-            key: "husband" as RecordRole,
-            label: "Husband",
+            key: "child" as RecordRole,
+            label: "Child",
+            render: (field:any)=><RecordForm field={field} gender={gender} isAdult={false}/>
+        },
+        {
+            key: "father" as RecordRole,
+            label: "Father",
             render: (field:any)=><RecordForm field={field} gender="M"/>
         },
         {
-            key: "wife" as RecordRole,
-            label: "Wife",
+            key: "mother" as RecordRole,
+            label: "Mother",
             render: (field:any)=><RecordForm field={field} gender="F"/>
         },
         {
-            key: "witness-1" as RecordRole,
-            label: "Witness",
+            key: "godfather" as RecordRole,
+            label: "Godfather",
             render: (field:any)=><RecordForm field={field} gender="M"/>
+            
         },
         {
-            key: "witness-2" as RecordRole,
-            label: "Witness",
-            render: (field:any)=><RecordForm field={field} gender="M"/>
-        },
+            key: "godmother" as RecordRole,
+            label: "Godmother",
+            render: (field: any)=><RecordForm field={field} gender="F"/>
+        }
+
     ];
     
     const RecordForm = ({field, gender, isAdult = true}:{field: SetItemProps, gender: Gender, isAdult?: boolean}) => {
@@ -80,8 +87,17 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
                     </Col>
                     <Col span={8}>
                         <Form.Item name={["members", field.key, "patronym"]}>
-                            <Input placeholder="Patronym" />
+                            <Select
+                                showSearch
+                                allowClear
+                                placeholder={"Patronym"}
+                                options={list.map(item=>({...item, label: `${item.name} - ${item.malePatronym} - ${item.femalePatronym}`, value: item.name}))}
+                                onSelect={(value: any, option: any)=>form.setFieldValue(["members", field.key, "patronym"], option)}
+                            />
                         </Form.Item>
+                        {/* <Form.Item name={["members", field.key, "patronym"]}>
+                            <Input placeholder="Patronym" />
+                        </Form.Item> */}
                     </Col>
                     {gender==="F"&&isAdult
                     ?<Col span={8}>

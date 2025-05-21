@@ -12,7 +12,7 @@ class DataTableProps {
 }
 
 const DataTable = ({title, data, columns, style, footer}: DataTableProps) => {
-    const [transformedData, setTransformedData] = useState(data);
+    const [transformedData, setTransformedData] = useState(data || []);
 
     useEffect(()=>{
         const newData = [...data].map((item, i) => {

@@ -30,31 +30,25 @@ const RecordMarriageForm = ({ data, initialDocument, save }: RecordMarriageFormP
     
     const config = [
         {
-            key: "child" as RecordRole,
-            label: "Child",
-            render: (field:any)=><RecordForm field={field} gender={gender} isAdult={false}/>
-        },
-        {
-            key: "father" as RecordRole,
-            label: "Father",
+            key: "husband" as RecordRole,
+            label: "Husband",
             render: (field:any)=><RecordForm field={field} gender="M"/>
         },
         {
-            key: "mother" as RecordRole,
-            label: "Mother",
+            key: "wife" as RecordRole,
+            label: "Wife",
             render: (field:any)=><RecordForm field={field} gender="F"/>
         },
         {
-            key: "godfather" as RecordRole,
-            label: "Godfather",
+            key: "witness-1" as RecordRole,
+            label: "Witness",
             render: (field:any)=><RecordForm field={field} gender="M"/>
-            
         },
         {
-            key: "godmother" as RecordRole,
-            label: "Godmother",
-            render: (field: any)=><RecordForm field={field} gender="F"/>
-        }
+            key: "witness-2" as RecordRole,
+            label: "Witness",
+            render: (field:any)=><RecordForm field={field} gender="M"/>
+        },
     ];
     
     const RecordForm = ({field, gender, isAdult = true}:{field: SetItemProps, gender: Gender, isAdult?: boolean}) => {

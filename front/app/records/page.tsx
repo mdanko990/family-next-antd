@@ -6,7 +6,7 @@ import recordColumns from "./records.table.conf";
 import { getAllRecords } from "../lib/records";
 import { Record, Document } from '@/models/record'
 import { Button, Flex, message, Space } from "antd";
-import { Blend, Skull } from "lucide-react";
+import { Blend, RefreshCw, Skull } from "lucide-react";
 import RecordInitPopconfirm from "./record-init.popconfirm";
 import RecordBirthModal from "./birth/record-birth.modal";
 import { FirstName, LastName } from "@/models/name";
@@ -34,13 +34,7 @@ export default function Records() {
     const [defaultDocument, setDefaultDocument] = useState(new Document());
 
     useEffect(() => {
-        getAllRecords()
-        .then((res) => {
-            setData(res.data);
-            setRecordsTotal(res.recordsTotal || 0);
-            setDocumentsTotal(res.documentsTotal || 0);
-        })
-        .catch((error)=>{message.error(error);setData([])})
+        refreshRecords();
         getAllStatuses()
         .then((res) =>{
             setStatuses(res)
@@ -63,6 +57,16 @@ export default function Records() {
         })
     },[]);
 
+    const refreshRecords = () => {
+        getAllRecords()
+        .then((res) => {
+            setData(res.data);
+            setRecordsTotal(res.recordsTotal || 0);
+            setDocumentsTotal(res.documentsTotal || 0);
+        })
+        .catch((error)=>{message.error(error);setData([])})
+    }
+
     return (
         <div>
             <Flex justify="space-between">
@@ -71,6 +75,9 @@ export default function Records() {
                     <Space>Records: {recordsTotal}</Space>
                 </Space>
                 <Flex gap={24}>
+                    <Space>
+                        <Button shape="circle" icon={<RefreshCw size={14}/>} onClick={refreshRecords}/>
+                    </Space>
                     <Space>
                         <RecordInitPopconfirm initialValues={defaultDocument} save={(value: Document)=>setDefaultDocument(value)}/>
                     </Space>
