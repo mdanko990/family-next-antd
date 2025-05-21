@@ -27,7 +27,19 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
     const [gender, setGender] = useState<Gender>('M');
     const [form] = useForm();
     const [submittable, setSubmittable] = useState<boolean>(false);
-    
+    /**
+     * SET CONFIG
+     * get all roles that have birth type in type-roles =>
+     * by using .map turn it into config, where:
+     * key - role.name
+     * label - capitalize(role.name)
+     * render - RecordForm, where gender - role.gender and isAdult - role.isAdult
+     */
+    /**
+     * SET MemberList
+     * get all roles that have birth type in type-roles =>
+     * create an object where key is the role and value is null at the start
+     */
     const config = [
         {
             key: "child" as RecordRole,
