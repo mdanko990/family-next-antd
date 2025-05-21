@@ -4,44 +4,55 @@ import { useEffect, useState } from 'react'
 import { createLastName, deleteLastName, getAllLastNames, updateLastName } from '../../../lib/lastnames'
 import { lastNameColumns } from './lastnames.table.conf'
 import { LastName } from '@/models/name'
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 import CreateLastnameForm from './create-lastname.form'
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
-
 const LastNamesTab = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [data, setData] = useState<LastName[]>([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    refreshData();
+  },[])
+
+  const refreshData = () => {
     getAllLastNames()
     .then((res) => {
         setData(res)
     })
-  },[])
+  }
 
   const addRow = (newRow: LastName) => {
-    createLastName(newRow);
-    setData([...data, newRow]);
-    setOpen(false);
+    createLastName(newRow)
+    .then(()=>{
+      refreshData();
+      setOpen(false);
+    })
+    .catch((error)=>{
+      messageApi.error(error)
+    })
   }
 
   const editRow = (row: LastName) => {
-    updateLastName(row);
-    const newData = data.map(item => {
-      if(item._id === row?._id) {
-        item.male = row.male;
-        item.female = row.female;
-      }
-      return item;
+    updateLastName(row)
+    .then(()=>{
+      refreshData();
     })
-    setData(newData);
+    .catch((error)=>{
+      messageApi.error(error)
+    })
   }
 
   const deleteRow = (id: string) => {
-    deleteLastName(id);
-    const newData = data.filter(item => item._id != id);
-    setData(newData);
+    deleteLastName(id)
+    .then(()=>{
+      refreshData();
+    })
+    .catch((error)=>{
+      messageApi.error(error)
+    })
   }
 
   const tableFooter = () => {
@@ -51,6 +62,7 @@ const LastNamesTab = () => {
   }
   
   return (
+    <>
     <div>
       <DataTable
       data={data}
@@ -67,6 +79,8 @@ const LastNamesTab = () => {
           </Button>
         }
     </div>
+    {contextHolder}
+    </>
   )
 }
 

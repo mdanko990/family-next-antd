@@ -9,6 +9,7 @@ import CreateFirstNameForm from './create-firstname.form'
 import { Button, Space, Switch } from 'antd'
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { firstNameColumns } from './firstname.table.conf'
+import { RefreshCw } from 'lucide-react'
  
 const FirstNamesTab = () => {
     const [data, setData] = useState<FirstName[]>([]);
@@ -19,16 +20,20 @@ const FirstNamesTab = () => {
     const [names, setNames] = useState([]);
 
   useEffect(() => {
-      getAllFirstNamesByGroups()
-      .then((res)=>{
-        setGroups(res);
-      })
-      getAllFirstNamesByNames()
-      .then((res)=>{
-        setNames(res);
-        setData(res);
-      });
+    refreshFirstNames();
   },[]);
+
+  const refreshFirstNames = () => {
+    getAllFirstNamesByGroups()
+    .then((res)=>{
+      setGroups(res);
+    })
+    getAllFirstNamesByNames()
+    .then((res)=>{
+      setNames(res);
+      setData(res);
+    });
+  }
 
   useEffect(() => {
     if(grouped){
@@ -41,26 +46,23 @@ const FirstNamesTab = () => {
   },[grouped]);
 
   const addRow = (newRow: FirstName) => {
-    createFirstName(newRow).then((res)=>{
-        setData([...data, {...newRow, _id: res._id}]);
+    createFirstName(newRow)
+    .then(()=>{
+        refreshFirstNames();
     })
   }
 
   const editRow = (row: FirstName) => {
-    updateFirstName(row);
-    const newData = data.map(item => {
-      if(item._id === row?._id) {
-        item.name = row.name;
-      }
-      return item;
+    updateFirstName(row).then((res)=>{
+      refreshFirstNames();
     })
-    setData(newData);
   }
 
   const deleteRow = (id: string) => {
-    deleteFirstName(id);
-    const newData = data.filter(item => item._id != id);
-    setData(newData);
+    deleteFirstName(id)
+    .then(()=>{
+      refreshFirstNames();
+    })
   }
 
   const tableFooter = () => {
@@ -77,8 +79,11 @@ const FirstNamesTab = () => {
         <div>
           <Space className='flex align-center'>
             <Switch size="small" checked={grouped} onClick={handleTableSwitch}/>
-            {grouped? "Grouped": "Ungrouped"}
-          </Space>
+              {grouped? "Grouped": "Ungrouped"}
+            </Space>
+            <Space>
+              <Button shape="circle" icon={<RefreshCw size={14}/>} onClick={refreshFirstNames}/>
+            </Space>
           <DataTable
           data={data}
           columns={columns}
