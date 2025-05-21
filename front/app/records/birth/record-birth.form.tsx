@@ -28,17 +28,21 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
     const [form] = useForm();
     const [submittable, setSubmittable] = useState<boolean>(false);
     /**
-     * SET CONFIG
+     * TODO: SET CONFIG
      * get all roles that have birth type in type-roles =>
      * by using .map turn it into config, where:
      * key - role.name
      * label - capitalize(role.name)
      * render - RecordForm, where gender - role.gender and isAdult - role.isAdult
+     * add limit to config
      */
     /**
-     * SET MemberList
+     * TODO: SET MemberList
      * get all roles that have birth type in type-roles =>
-     * create an object where key is the role and value is null at the start
+     * create an object where key is the role and value is empty array at the start
+     */
+    /**
+     * TODO: move form item configuration to sepatated file => so it would be possible to reuse same fields for differend forms
      */
     const config = [
         {
@@ -148,7 +152,7 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
                         : <Col span={8}></Col>
                     }
                     <Col span={24}>
-                        <Form.Item name="">
+                        <Form.Item name="comment">
                             <TextArea rows={2} />
                         </Form.Item>
                     </Col>
