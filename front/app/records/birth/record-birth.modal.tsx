@@ -1,6 +1,6 @@
 import { Button, message, Modal } from "antd";
 import { Cake } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Document } from "@/models/record";
 import { FirstName, LastName } from "@/models/name";
 import { Status } from "@/models/status";

@@ -12,7 +12,7 @@ class DataTableProps {
 }
 
 const DataTable = ({title, data, columns, style, footer}: DataTableProps) => {
-    const [transformedData, setTransformedData] = useState(data);
+    const [transformedData, setTransformedData] = useState(data || []);
 
     useEffect(()=>{
         const newData = [...data].map((item, i) => {
@@ -20,6 +20,16 @@ const DataTable = ({title, data, columns, style, footer}: DataTableProps) => {
         })
         setTransformedData(newData);
     }, [data])
+
+    /**
+     * make rows editable: for statuses, types, roles
+     *  - click on pencil in last column and all cells of the row are editable
+     * make cells editable: for type-roles
+     *  - double click on the cell, edit the cell, save on blur
+     * make the record editable: for records
+     *  - show button in on row hover at the end of the row (edit, edit decoument, delete, delete document)
+     *  - click on pencil and open the modal
+     */
 
     return (
         <Table

@@ -27,11 +27,16 @@ const FormItemSet = <T, K>({ config, initList}: FormItemSetProps<T, K>) => {
         setList({...list, [value]: undefined});
     }
 
+    /**
+     * disable if length of list[role] is same as limit
+     */
+
     return (
         <Form.Item>
             <Flex gap={4}>
                 {
                     config.map(item => (
+                        /**wrap buttons */
                         <Button key={item.label} type="dashed" onClick={()=>add(item.key as keyof T)} block disabled={!!list[item.key as keyof T]} className="mb-4">
                         + {item.label}
                         </Button>

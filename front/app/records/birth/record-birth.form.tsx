@@ -27,28 +27,51 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
     const [gender, setGender] = useState<Gender>('M');
     const [form] = useForm();
     const [submittable, setSubmittable] = useState<boolean>(false);
-    
+    /**
+     * TODO: SET CONFIG
+     * get all roles that have birth type in type-roles =>
+     * by using .map turn it into config, where:
+     * key - role.name
+     * label - capitalize(role.name)
+     * render - RecordForm, where gender - role.gender and isAdult - role.isAdult
+     * add limit to config
+     */
+    /**
+     * TODO: SET MemberList
+     * get all roles that have birth type in type-roles =>
+     * create an object where key is the role and value is empty array at the start
+     */
+    /**
+     * TODO: move form item configuration to sepatated file => so it would be possible to reuse same fields for differend forms
+     */
     const config = [
         {
-            key: "husband" as RecordRole,
-            label: "Husband",
+            key: "child" as RecordRole,
+            label: "Child",
+            render: (field:any)=><RecordForm field={field} gender={gender} isAdult={false}/>
+        },
+        {
+            key: "father" as RecordRole,
+            label: "Father",
             render: (field:any)=><RecordForm field={field} gender="M"/>
         },
         {
-            key: "wife" as RecordRole,
-            label: "Wife",
+            key: "mother" as RecordRole,
+            label: "Mother",
             render: (field:any)=><RecordForm field={field} gender="F"/>
         },
         {
-            key: "witness-1" as RecordRole,
-            label: "Witness",
+            key: "godfather" as RecordRole,
+            label: "Godfather",
             render: (field:any)=><RecordForm field={field} gender="M"/>
+            
         },
         {
-            key: "witness-2" as RecordRole,
-            label: "Witness",
-            render: (field:any)=><RecordForm field={field} gender="M"/>
-        },
+            key: "godmother" as RecordRole,
+            label: "Godmother",
+            render: (field: any)=><RecordForm field={field} gender="F"/>
+        }
+
     ];
     
     const RecordForm = ({field, gender, isAdult = true}:{field: SetItemProps, gender: Gender, isAdult?: boolean}) => {
@@ -80,8 +103,17 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
                     </Col>
                     <Col span={8}>
                         <Form.Item name={["members", field.key, "patronym"]}>
-                            <Input placeholder="Patronym" />
+                            <Select
+                                showSearch
+                                allowClear
+                                placeholder={"Patronym"}
+                                options={list.map(item=>({...item, label: `${item.name} - ${item.malePatronym} - ${item.femalePatronym}`, value: item.name}))}
+                                onSelect={(value: any, option: any)=>form.setFieldValue(["members", field.key, "patronym"], option)}
+                            />
                         </Form.Item>
+                        {/* <Form.Item name={["members", field.key, "patronym"]}>
+                            <Input placeholder="Patronym" />
+                        </Form.Item> */}
                     </Col>
                     {gender==="F"&&isAdult
                     ?<Col span={8}>
@@ -120,7 +152,7 @@ const RecordBirthForm = ({ data, initialDocument, save }: RecordBirthFormProps) 
                         : <Col span={8}></Col>
                     }
                     <Col span={24}>
-                        <Form.Item name="">
+                        <Form.Item name="comment">
                             <TextArea rows={2} />
                         </Form.Item>
                     </Col>
