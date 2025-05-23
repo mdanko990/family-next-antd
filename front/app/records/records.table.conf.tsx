@@ -1,6 +1,5 @@
 import { ColumnsType } from "antd/es/table";
 import { AgeRenderer, DateRenderer, LinkRenderer, RoleRenderer, SimpleTagRenderer, TypeRenderer } from "../components/table-cell.renderer";
-type FormControlType = "select" | "inputText" | "inputNumber" | "date" | "textarea" | "switch"
 
 const recordColumns: ColumnsType = [
     {

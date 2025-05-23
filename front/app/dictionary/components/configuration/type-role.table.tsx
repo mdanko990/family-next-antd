@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 
 const TypeRolesTable = ({data, refresh}: {data: {roles: Role[], types: Type[], typeRoles: any[]}, refresh: Function}) => {
     const [messageApi, contextHolder] = message.useMessage();
-    const [open, setOpen] = useState(false);
-    const [form] = useForm();
     const [columns, setColumns] = useState<any[]>([]);
 
     useEffect(()=>{
@@ -28,9 +26,9 @@ const TypeRolesTable = ({data, refresh}: {data: {roles: Role[], types: Type[], t
             width: "70px",
             render: (value: any, record: any) => {
                 const dependency = record?.types?.find((item: any) => item.type?.name == type.name);
-                return <span>{dependency ? dependency.limit : null}</span>
+                return <span>{dependency ? dependency.limit : 0}</span>
             }
-        }));
+        })) || [];
         setColumns([firstCol, ...cols]);
     }, [data])
     
@@ -40,7 +38,7 @@ const TypeRolesTable = ({data, refresh}: {data: {roles: Role[], types: Type[], t
                 <h3>Type - Role dependency</h3>
                 <Button shape="circle" size="small" icon={<RefreshCw size={14} />} onClick={()=>refresh()}/>
             </Flex>
-            <DataTable2 data={data.typeRoles} cols={columns}/>
+            <DataTable2 data={data?.typeRoles||[]} defaultColumns={columns} mode="row"/>
             {contextHolder}
         </>
     )
