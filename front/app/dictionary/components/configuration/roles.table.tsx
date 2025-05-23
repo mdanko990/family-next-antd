@@ -117,7 +117,7 @@ const RolesTable = ({data, refresh}: {data: Role[], refresh: Function}) => {
                     </Popover>
                 </Flex>
             </Flex>
-            <DataTable data={data} columns={columns}/>
+            <DataTable data={data || []} columns={columns}/>
             {contextHolder}
         </>
     )

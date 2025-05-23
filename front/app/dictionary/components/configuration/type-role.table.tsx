@@ -1,14 +1,10 @@
-import DataTable from "@/app/components/table";
-import palette from "@/app/lib/color-palette";
-import { createType, deleteType } from "@/app/lib/types";
+import DataTable2 from "@/app/components/editable";
 import capitalize from "@/helpers/capitalize";
 import { Role } from "@/models/role";
 import { Type } from "@/models/type";
-import { TypeRole } from "@/models/type-role";
-import { Button, Flex, Form, Input, message, Popconfirm, Popover } from "antd";
+import { Button, Flex, message } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
-import { title } from "process";
+import { RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const TypeRolesTable = ({data, refresh}: {data: {roles: Role[], types: Type[], typeRoles: any[]}, refresh: Function}) => {
@@ -27,6 +23,7 @@ const TypeRolesTable = ({data, refresh}: {data: {roles: Role[], types: Type[], t
         const cols = data.types.map(type => ({
             key: type.name,
             title: capitalize(type.name),
+            editable: true,
             dataIndex: type._id,
             width: "70px",
             render: (value: any, record: any) => {
@@ -43,7 +40,7 @@ const TypeRolesTable = ({data, refresh}: {data: {roles: Role[], types: Type[], t
                 <h3>Type - Role dependency</h3>
                 <Button shape="circle" size="small" icon={<RefreshCw size={14} />} onClick={()=>refresh()}/>
             </Flex>
-            <DataTable data={data.typeRoles} columns={columns}/>
+            <DataTable2 data={data.typeRoles} cols={columns}/>
             {contextHolder}
         </>
     )

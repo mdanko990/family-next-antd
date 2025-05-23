@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", async (request, response) => {
   try {
-    const roles = await RoleModel.find().sort({ name: 1 }).populate("types");
+    const roles = await RoleModel.find().sort({ name: 1 });
     response.send(roles);
   } catch (error) {
     response.status(500).send(error);
